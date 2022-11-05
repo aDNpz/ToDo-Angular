@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Todo } from './ToDo';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ToDoList';
+todos : Todo[] = [];
+newToDo : string;
+
+
+saveToDo(){
+  if(this.newToDo){
+    let todo = new Todo();
+    todo.name=this.newToDo;
+    todo.isCompleted = true;
+    this.todos.push(todo);
+    this.newToDo = '';
+  }else{
+    alert('Please enter a todo');
+  }
 }
+done(id:number){
+  this.todos[id].isCompleted = !this.todos[id].isCompleted;
+}
+remove(id:number){
+  this.todos = this.todos.filter((v,i)=> i !== id)
+}
+}
+
+
